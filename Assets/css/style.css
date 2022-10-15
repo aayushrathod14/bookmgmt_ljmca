@@ -7,3 +7,12 @@
 .h-custom{
     height: 100%;
 }
+
+.main_middle_content{
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.booklist_col{
+    padding: 10px;
+}
