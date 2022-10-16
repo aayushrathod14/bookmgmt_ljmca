@@ -40,7 +40,24 @@ function set_formdata($formdata){
 }
 
 function form_value($key = ""){
-    if(isset($_SESSION['formdata'][$key]))
-        return $_SESSION['formdata'][$key];
+    if(isset($_SESSION['formdata'][$key])){
+        $value = $_SESSION['formdata'][$key];
+        unset($_SESSION['formdata'][$key]);
+        return $value;
+    }
     else return "";
+}
+
+function set_user($user){
+    $_SESSION['user'] = $user;
+}
+
+function auth_user(){
+    if(isset($_SESSION['user']))
+        return $_SESSION['user'];
+    else return false;
+}
+
+function logout_auth_user(){
+    unset($_SESSION['user']);
 }

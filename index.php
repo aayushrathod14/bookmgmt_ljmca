@@ -1,4 +1,4 @@
-<?php include_once('layouts/user/header.php'); ?>
+<?php session_start(); include_once('layouts/user/header.php'); ?>
 <?php include_once('layouts/user/navbar.php'); ?>
 <?php
     $variable = [

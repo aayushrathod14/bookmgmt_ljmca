@@ -62,8 +62,8 @@
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <input name="userreg" type="submit" class="btn btn-primary btn-lg"
-                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</input>
+                        <input name="userreg" type="submit" value="Register" class="btn btn-primary btn-lg"
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;">
                         <p class="small fw-bold mt-2 pt-1 mb-0">Have an account? <a href="login.php"
                             class="link-danger">Login</a></p>
                     </div>

@@ -53,3 +53,7 @@
 .invalid-feedback{
     display: block;
 }
+
+.user_logged_text{
+    margin-right: 10px;
+}

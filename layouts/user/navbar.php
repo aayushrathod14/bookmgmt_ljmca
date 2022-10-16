@@ -17,8 +17,14 @@
         </li>
       </ul>
       <form class="d-flex">
-        <a href="signup.php" class="btn btn-outline-primary signupBtn" type="button">Sign Up</a>
-        <a href="login.php" class="btn btn-outline-success" type="button">Log In</a>
+        <?php
+          if(!auth_user()){ ?>
+          <a href="signup.php" class="btn btn-outline-primary signupBtn" type="button">Sign Up</a>
+          <a href="login.php" class="btn btn-outline-success" type="button">Log In</a>
+        <?php } else{ ?>
+          <span class="user_logged_text">Logged In  : <?=auth_user()['firstname']?></span>
+          <a href="logout.php" class="btn btn-outline-primary signupBtn" type="button">Logout</a>
+        <?php } ?>
       </form>
     </div>
   </div>

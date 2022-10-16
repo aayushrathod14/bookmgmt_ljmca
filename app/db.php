@@ -24,7 +24,7 @@ try{
             else $whereStr = $whereStr."=".$data[$key];
             
             if(COUNT($keys) != ( $index + 1)){
-                $whereStr =  $whereStr.",";
+                $whereStr =  $whereStr." and ";
             }
         }
         if(!COUNT($keys)) $whereStr = "";

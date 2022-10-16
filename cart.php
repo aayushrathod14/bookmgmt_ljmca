@@ -1,5 +1,7 @@
-<?php include_once('layouts/user/header.php'); ?>
-<?php include_once('layouts/user/navbar.php'); ?>
+<?php session_start();
+ include_once('layouts/user/header.php');  
+ if(!auth_user()) redirect('/login.php');
+ include_once('layouts/user/navbar.php'); ?>
 <div class="container main_middle_content">
     <div class="row">
         <div class="col-md-12">

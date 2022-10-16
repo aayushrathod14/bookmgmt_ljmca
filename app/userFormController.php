@@ -67,9 +67,37 @@ if(isset($_POST['userreg'])){
     else{
         $data['password'] = md5($data['password']);
         $res = db_insert('users', $data);
-        set_success('message', 'Sign up successfully done. Please login');
         if($res){
+            set_success('message', 'Sign up successfully done. Please login');
             redirect('/login.php');
         }
+    }
+}
+
+if(isset($_POST['userlogin'])){
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $validation = true;
+
+    if(!isset($email) || empty($email)){
+        set_error('email', 'Email required!');
+        $validation = false;
+    }
+
+    if(!isset($password) || empty($password)){
+        set_error('password', 'Password required!');
+        $validation = false;
+    }
+
+    if(!$validation){ redirect('/login.php');}
+     
+    $res = db_where("users", ['email'=>$email, 'password'=>md5($password)]);
+    if(COUNT($res)==0){
+        set_error('message', 'Invalid email or password.');
+        redirect('/login.php');
+    }
+    else{
+        set_user($res[0]);
+        redirect('/');
     }
 }
