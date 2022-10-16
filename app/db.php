@@ -85,6 +85,37 @@ try{
             return false;
         }
     }
+
+    function db_update($table="", $data=[], $id=0){
+        $updateStr = "";
+        $keys = array_keys($data);
+        foreach ($keys as $index => $key) {
+            $updateStr =  $updateStr." $key";
+            
+            if(gettype($data[$key]) == 'string') 
+                $updateStr = $updateStr."='".$data[$key]."'";
+            else $updateStr = $updateStr."=".$data[$key];
+            
+            if(COUNT($keys) != ( $index + 1)){
+                $updateStr =  $updateStr.", ";
+            }
+        }
+        if(!COUNT($keys)) $updateStr = "";
+        $query = "UPDATE $table SET $updateStr WHERE ID = $id";
+
+        $conn = $GLOBALS['conn'];
+        try {
+            $res = db_query($query);
+            return $res;
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
+    function db_delete($tablename="", $id = 0){
+        $res = mysqli_query($GLOBALS['conn'], "DELETE FROM $tablename WHERE id = $id");
+        return $res;
+    }
 }
 catch(Exception $e){
     var_dump($e);

@@ -5,6 +5,8 @@ if(!auth_admin()){
   redirect('/admin/login.php');
   exit;
 }
+
+$books = db_get('books');
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -19,30 +21,34 @@ if(!auth_admin()){
         <thead>
             <tr>
                 <th>id</th>
+                <th>Image</th>
                 <th>Title</th>
                 <th>Category</th>
-                <th>Image</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011-04-25</td>
-                <td>$320,800</td>
-            </tr>
-            <tr>
-                <td>Garrett Winters</td>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-                <td>63</td>
-                <td>2011-07-25</td>
-                <td>$170,750</td>
-            </tr>
+            <?php
+            foreach ($books as $book) { ?>
+              <tr>
+                  <td><?=$book['id']?></td>
+                  <td>
+                    <img height=50 width=50 src="<?=BASE_URL.$book['image']?>" alt="" srcset="">
+                  </td>
+                  <td><?=$book['title']?></td>
+                  <td><?=db_find('categories', $book['category_id'])->name?></td>
+                  <td>₹<?=$book['price']?></td>
+                  <td><?=$book['quantity']?></td>
+                  <td class="d-flex gap-2 pt-4 pb-4">
+                    <a href="/admin/editbook.php?id=<?=$book['id']?>" class="btn btn-sm btn-warning"><fa class="fa fa-pencil"></fa></a>
+                    <form action="../app/adminFormController.php" method="post">
+                      <button type="submit" name="deleteBook" value="<?=$book['id']?>" class="btn btn-sm btn-danger"><fa class="fa fa-trash"></fa></button>
+                    </form>
+                  </td>
+              </tr>
+            <?php }  ?> 
             </tbody>
         </table>
      </div>

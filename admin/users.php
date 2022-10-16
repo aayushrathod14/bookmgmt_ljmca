@@ -5,6 +5,8 @@ if(!auth_admin()){
   redirect('/admin/login.php');
   exit;
 }
+
+$users = db_get('users');
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -18,33 +20,23 @@ if(!auth_admin()){
         <thead>
             <tr>
                 <th>id</th>
-                <th>Profile</th>
                 <th>First Name</th>
                 <th>Lastname</th>
                 <th>Email</th>
-                <th>Customer Address</th>
                 <th>Signup On</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011-04-25</td>
-                <td>$320,800</td>
-                <td>2011-04-25</td>
-            </tr>
-            <tr>
-                <td>Garrett Winters</td>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-                <td>63</td>
-                <td>2011-07-25</td>
-                <td>$170,750</td>
-                <td>$320,800</td>
-            </tr>
+            <?php
+            foreach ($users as $user) { ?>
+              <tr>
+                <td><?=$user['id']?></td>
+                <td><?=$user['firstname']?></td>
+                <td><?=$user['lastname']?></td>
+                <td><?=$user['email']?></td>
+                <td><?=date('d M, Y', strtotime($user['created_at']))?></td>
+              </tr>
+            <?php } ?>
             </tbody>
         </table>
      </div>

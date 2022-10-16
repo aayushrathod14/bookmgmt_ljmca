@@ -6,6 +6,16 @@ if(!auth_admin()){
   exit;
 }
 
+$book_id = $_GET['id'];
+if(!isset($book_id) || empty($book_id)){
+    redirect('/admin');
+}
+
+$book = db_find('books', $book_id);
+if(!$book){
+    redirect('/admin');
+}
+
 $categories = db_get('categories');
 
 ?>
@@ -14,19 +24,20 @@ $categories = db_get('categories');
   <?php include_once('../layouts/admin/sidebar.php'); ?>
      <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Add Order</h1>
+            <h1 class="h2">Edit Order</h1>
         </div>
         <div class="row">
             <div class="col-md-4 offset-md-4">
                 <form enctype="multipart/form-data" action="../app/adminFormController.php" method="post">
+                <input type="hidden" name="bookId" value="<?=$book_id?>">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Book Title</label>
-                    <input type="text" name="title" class="form-control" id="exampleInputEmail1" value="<?=form_value('title')?>" aria-describedby="emailHelp" placeholder="Book Title">
+                    <input type="text" name="title" class="form-control" id="exampleInputEmail1" value="<?=form_value('title') | $book->title?>" aria-describedby="emailHelp" placeholder="Book Title">
                     <div class="invalid-feedback"><?=show_error('title')?></div>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputEmail1">Book Decription</label>
-                    <Textarea type="text" name="description" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Book Description"><?=form_value('description')?></Textarea>
+                    <label for="exampleInputEmail1">Book Description</label>
+                    <TextArea type="text" name="description" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Book Description"><?=form_value('description') | $book->description?></TextArea>
                     <div class="invalid-feedback"><?=show_error('description')?></div>
                 </div>
                 <div class="form-group">
@@ -35,24 +46,25 @@ $categories = db_get('categories');
                         <?php
                             $selected_cat = form_value('categoryId');
                             foreach ($categories as $key => $category) { ?>
-                             <option value="<?=$category['id']?>" <?=$selected_cat==$category['id']?'Selected':''?>><?=$category['name']?></option>
-                        <?php } ?>
+                             <option value="<?=$category['id']?>" <?=($selected_cat!=''?($selected_cat==$category['id']):($book->category_id==$category['id']))?'Selected':''?>><?=$category['name']?></option>
+                        <?php } ?> 
                     </select>
                     <div class="invalid-feedback"><?=show_error('categoryId')?></div>
                 </div>
                 <div class="form-group">
                     <label for="inpPrice">Price</label>
-                    <input type="number" name="price"  value="<?=form_value('price')?>" class="form-control" id="inpPrice" aria-describedby="price" placeholder="Price">
+                    <input type="number" name="price"  value="<?=form_value('price') | $book->price?>" class="form-control" id="inpPrice" aria-describedby="price" placeholder="Price">
                     <div class="invalid-feedback"><?=show_error('price')?></div>
                 </div>
                 <div class="form-group">
                     <label for="inputQuantity">Quantity</label>
-                    <input type="number" name="quantity"  value="<?=form_value('quantity')?>" class="form-control" id="inputQuantity" aria-describedby="Quantity" placeholder="Quantity">
+                    <input type="number" name="quantity"  value="<?=form_value('quantity') | $book->quantity?>" class="form-control" id="inputQuantity" aria-describedby="Quantity" placeholder="Quantity">
                     <div class="invalid-feedback"><?=show_error('quantity')?></div>
                 </div>
                 <div class="form-group">
                     <label for="inputImage">Image</label>
                     <input type="file" name="image" class="form-control" id="inputImage" aria-describedby="inputImage" placeholder="Select File">
+                    <a href="<?=BASE_URL.$book->image?>">View Image</a>
                     <div class="invalid-feedback"><?=show_error('image')?></div>
                 </div>
                 <div class="form-group submit-btns">
