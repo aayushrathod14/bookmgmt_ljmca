@@ -1,4 +1,4 @@
 <?php
 session_start();
 unset($_SESSION['adminuser']);
-header('location: /admin');
+header('location: /admin/login');

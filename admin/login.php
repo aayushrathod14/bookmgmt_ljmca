@@ -1,6 +1,11 @@
 <?php 
-session_start(); 
-include_once('../app/helper.php'); ?>
+session_start();
+include_once('../app/helper.php');
+if(auth_admin()){
+  redirect('/admin');
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
