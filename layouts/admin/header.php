@@ -1,4 +1,4 @@
-<?php include_once('../app/helper.php'); ?>
+<?php include_once('../app/helper.php'); include_once('../app/db.php') ?>
 <!doctype html>
 <html lang="en">
   <head>

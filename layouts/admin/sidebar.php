@@ -8,13 +8,13 @@
     </a>
     </li>
     <li class="nav-item">
-    <a class="nav-link <?=(current_file()=='orders.php'||current_file()=='addorder.php')?'active':''?>" href="/admin/orders.php">
+    <a class="nav-link <?=(current_file()=='orders.php')?'active':''?>" href="/admin/orders.php">
         <span data-feather="file" class="align-text-bottom"></span>
         Orders
     </a>
     </li>
     <li class="nav-item">
-    <a class="nav-link <?=current_file()=='books.php'?'active':''?>" href="/admin/books.php">
+    <a class="nav-link <?=(current_file()=='books.php'||current_file()=='addbook.php')?'active':''?>" href="/admin/books.php">
         <span data-feather="book" class="align-text-bottom"></span>
         Books
     </a>
