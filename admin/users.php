@@ -2,7 +2,7 @@
 session_start();
 include_once('../layouts/admin/header.php'); 
 if(!auth_admin()){
-  redirect('/admin/login');
+  redirect('/admin/login.php');
   exit;
 }
 ?>

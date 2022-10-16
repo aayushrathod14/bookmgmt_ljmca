@@ -24,7 +24,7 @@ if(isset($_POST['adminlogin'])){
         $res = db_where("adminusers", ['email'=>$email, 'password'=>md5($password)]);
         var_dump(COUNT($res));
         if(COUNT($res)>0){
-            set_user($res[0]);
+            set_admin_user($res[0]);
             redirect('/admin');
             exit;
         }
