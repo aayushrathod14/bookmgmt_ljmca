@@ -7,13 +7,13 @@
       <a class="navbar-brand" href="#">LJMCA A48-49-50</a>
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link <?=current_file()==''?'active':''?>" aria-current="page" href="/">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Cart</a>
+          <a class="nav-link <?=current_file()=='cart.php'?'active':''?>" href="/cart.php">Cart</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Orders</a>
+          <a class="nav-link <?=current_file()=='myorder.php'?'active':''?>" href="/myorder.php">Orders</a>
         </li>
       </ul>
       <form class="d-flex">

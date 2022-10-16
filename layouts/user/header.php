@@ -1,3 +1,4 @@
+<?php include_once('app/helper.php'); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
