@@ -92,7 +92,7 @@ if(isset($_POST['addbookform'])){
         $res = db_insert('books', $query_data);
     else
         $res = db_update('books', $query_data, $bookId);
-
+    var_dump(mysqli_error($conn));
     if($res){
         unset($_SESSION['formdata']);
         redirect('/admin/books.php');

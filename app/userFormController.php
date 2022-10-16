@@ -101,3 +101,21 @@ if(isset($_POST['userlogin'])){
         redirect('/');
     }
 }
+
+if(isset($_POST['addtocart'])){
+    if(auth_user()){
+        $book_id = $_POST['addtocart'];
+        $user_id = auth_user()['id'];
+        db_insert('cart', ['book_id'=>$book_id, 'user_id'=>$user_id, 'quantity'=>1]);
+        redirect('/'); 
+    }
+}
+
+
+if(isset($_POST['removefcart'])){
+    if(auth_user()){
+        $cart_id = $_POST['removefcart'];
+        db_delete('cart', $cart_id);
+        redirect('/'); 
+    }
+}

@@ -9,13 +9,11 @@
         </div>
     </div>
 <?php
-    $variable = [
-        "", "", "", "", "", "", "", "", "" ,""
-    ]
+    $books = db_query('SELECT cart.id as cart_id, books.* FROM `cart` inner join books on books.id = cart.book_id where user_id='.auth_user()['id']);
 ?>
     <div class="row">
         <?php
-        foreach ($variable as $key => $value) { ?>
+        foreach ($books as $book) { ?>
             <div class="col-md-3 booklist_col">
                 <?php include('components/booklist.php'); ?>
             </div>
