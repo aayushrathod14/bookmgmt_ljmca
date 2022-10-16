@@ -7,13 +7,13 @@
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
             <p class="small fw-bold mt-2 pt-1 mb-3">Registration Form</p>
-                <form>
+                <form method="post" action="/app/userFormController.php">
                     <div class="row">
                         <div class="col-md-6">
                         <!-- First Name input -->
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="firstnameInp">First Name</label>
-                                <input type="text" id="firstnameInp" class="form-control form-control-lg"
+                                <input type="text" id="firstnameInp" name="firstname" class="form-control form-control-lg"
                                 placeholder="Enter first name" />
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                             <!-- Last Name input -->
                             <div class="form-outline mb-4">
                                 <label class="form-label" for="lastnameInp">Last Name</label>
-                                <input type="text" id="lastnameInp" class="form-control form-control-lg"
+                                <input type="text" id="lastnameInp"  name="lastname" class="form-control form-control-lg"
                                 placeholder="Enter last name" />
                             </div>
                         </div>
@@ -30,34 +30,34 @@
                     <!-- Mobile input -->
                     <div class="form-outline mb-3">
                         <label class="form-label" for="mobileInput">Mobile</label>
-                        <input type="text" id="mobileInput mobileInputValidation" class="form-control form-control-lg"
+                        <input type="text" id="mobileInput mobileInputValidation"  name="mobile" class="form-control form-control-lg"
                         placeholder="Enter Mobile" />
                     </div>
 
                     <!-- Email input -->
                     <div class="form-outline mb-4">
                         <label class="form-label" for="emailInp">Email address</label>
-                        <input type="email" id="emailInp emailValidation" class="form-control form-control-lg"
+                        <input type="email" id="emailInp emailValidation"  name="email" class="form-control form-control-lg"
                         placeholder="Enter a valid email address" />
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-3">
                         <label class="form-label" for="passwordInp">Password</label>
-                        <input type="password" id="passwordInp" class="form-control form-control-lg"
+                        <input type="password" id="passwordInp"  name="password" class="form-control form-control-lg"
                         placeholder="Enter password" />
                     </div>
 
                     <!-- Password input -->
                     <div class="form-outline mb-3">
                         <label class="form-label" for="passwordInp">Confirm Password</label>
-                        <input type="password" id="passwordInp" class="form-control form-control-lg"
+                        <input type="password" id="passwordInp"  name="cpassword" class="form-control form-control-lg"
                         placeholder="Enter password" />
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <button type="button" class="btn btn-primary btn-lg"
-                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</button>
+                        <input name="userreg" type="submit" class="btn btn-primary btn-lg"
+                        style="padding-left: 2.5rem; padding-right: 2.5rem;">Register</input>
                         <p class="small fw-bold mt-2 pt-1 mb-0">Have an account? <a href="login.php"
                             class="link-danger">Login</a></p>
                     </div>

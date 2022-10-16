@@ -5,3 +5,11 @@ function current_file(){
     else
         return '/';
 }
+
+function set_success_msg($key = "", $value = ""){
+    
+}
+
+function get_success_msg($key = ""){
+    
+}
