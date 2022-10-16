@@ -13,6 +13,40 @@ try{
         return $res->fetch_object();
     }
 
+    function db_where($table="", $data=[]){
+        $whereStr = "where ";
+        $keys = array_keys($data);
+        foreach ($keys as $index => $key) {
+            $whereStr =  $whereStr." $key";
+            
+            if(gettype($data[$key]) == 'string') 
+                $whereStr = $whereStr."='".$data[$key]."'";
+            else $whereStr = $whereStr."=".$data[$key];
+            
+            if(COUNT($keys) != ( $index + 1)){
+                $whereStr =  $whereStr.",";
+            }
+        }
+        if(!COUNT($keys)) $whereStr = "";
+        $query = "SELECT * FROM $table $whereStr";
+        $conn = $GLOBALS['conn'];
+        try {
+            $res = db_query($query);
+            if(!$res){
+                echo 'mysql error : ';
+                print_r(mysqli_error($conn));
+                die();
+            }
+            $result = [];
+            while($obj = $res->fetch_assoc()){
+                $result[] = $obj;
+            }
+            return $result;
+        } catch (\Throwable $th) {
+            return false;
+        }
+    }
+
     function db_get($tablename=""){
         $res = mysqli_query($GLOBALS['conn'], "SELECT * FROM $tablename");
         $result = [];

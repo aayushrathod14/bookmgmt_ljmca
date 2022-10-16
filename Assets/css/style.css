@@ -49,3 +49,7 @@
 .btn-fixe-size{
     font-size: 14px;
 }
+
+.invalid-feedback{
+    display: block;
+}
