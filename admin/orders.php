@@ -1,4 +1,11 @@
-<?php include_once('../layouts/admin/header.php'); ?>
+<?php 
+session_start();
+include_once('../layouts/admin/header.php'); 
+if(!auth_admin()){
+  redirect('/admin/login');
+  exit;
+}
+?>
 <div class="container-fluid">
   <div class="row">
   <?php include_once('../layouts/admin/sidebar.php'); ?>

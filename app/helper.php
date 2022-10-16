@@ -58,6 +58,13 @@ function auth_user(){
     else return false;
 }
 
-function logout_auth_user(){
-    unset($_SESSION['user']);
+function set_admin_user($user){
+    $_SESSION['adminuser'] = $user;
 }
+
+function auth_admin(){
+    if(isset($_SESSION['adminuser']))
+        return $_SESSION['adminuser'];
+    else return false;
+}
+
