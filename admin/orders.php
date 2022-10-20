@@ -5,6 +5,9 @@ if(!auth_admin()){
   redirect('/admin/login.php');
   exit;
 }
+
+$orders = db_query('select orders.id, orders.order_no, books.id as book_id, books.title, books.price, orderdetails.quantity, users.firstname, users.lastname, orders.payment_status, orders.created_at from orders inner join orderdetails on orderdetails.order_id = orders.id inner join books on books.id = orderdetails.book_id inner join users on users.id = orders.user_id');
+
 ?>
 <div class="container-fluid">
   <div class="row">
@@ -21,32 +24,26 @@ if(!auth_admin()){
                 <th>Order No.</th>
                 <th>Book Name & No.</th>
                 <th>Sell Price</th>
+                <th>Quantity</th>
                 <th>Customer Name</th>
-                <th>Customer Address</th>
-                <th>Status</th>
+                <th>Payment Status</th>
                 <th>Order Date</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td>Tiger Nixon</td>
-                <td>System Architect</td>
-                <td>Edinburgh</td>
-                <td>61</td>
-                <td>2011-04-25</td>
-                <td>$320,800</td>
-                <td>2011-04-25</td>
-                <td>$320,800</td>
-            </tr>
-            <tr>
-                <td>Garrett Winters</td>
-                <td>Accountant</td>
-                <td>Tokyo</td>
-                <td>63</td>
-                <td>2011-07-25</td>
-                <td>$170,750</td><td>2011-04-25</td>
-                <td>$320,800</td>
-            </tr>
+            <?php
+            foreach ($orders as $key => $order) { ?>
+              <tr>
+                <td><?=$order['id']?></td>
+                <td><?=$order['order_no']?></td>
+                <td>(<?=$order['book_id']?>) <?=$order['title']?></td>
+                <td>₹ <?=$order['price']?></td>
+                <td><?=$order['quantity']?></td>
+                <td><?=$order['firstname'].' '.$order['lastname']?></td>
+                <td><?=$order['payment_status']?></td>
+                <td><?=$order['created_at']?></td>
+              </tr>
+            <?php }  ?>
             </tbody>
         </table>
      </div>

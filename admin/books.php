@@ -6,7 +6,7 @@ if(!auth_admin()){
   exit;
 }
 
-$books = db_get('books');
+$books = db_where('books');
 ?>
 <div class="container-fluid">
   <div class="row">

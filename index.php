@@ -1,6 +1,7 @@
 <?php session_start(); include_once('layouts/user/header.php'); 
      include_once('layouts/user/navbar.php'); 
-    $books = db_query('SELECT books.*, (select id from cart where user_id='.auth_user()['id'].' and book_id = books.id limit 1) as cart_id FROM `books`');
+    if(auth_user()) $books = db_query('SELECT books.*, (select id from cart where user_id='.auth_user()['id'].' and book_id = books.id limit 1) as cart_id FROM `books` where available = 1');
+    else $books = db_query('SELECT books.*,  null as cart_id FROM `books` where available = 1');
 ?>
 <div class="container main_middle_content">
     <div class="row">

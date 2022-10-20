@@ -5,13 +5,22 @@
         <p class="card-text book_description"><?=$book['description']?></p>
         <div class="row">
             <div class="col-">
-                <span class="book_price">MRP : <?=$book['price']?></span>
+                <span class="book_price">MRP : ₹<?=$book['price']?></span>
             </div>
         </div>
+        <?php
+        if(isset($book['is_purchased']) && $book['is_purchased']){
+             ?>
+            <span>Order No. : #<?=$book['order_no']?></span> <br>
+            <span>Quantity : <?=$book['quantity']?></span>  <br>
+            <button class="btn btn-success">Purchased</button>
+        <?php }
+        else{ ?>
         <div class="row">
             <div class="col-7">
-                <?php if(current_file()=='cart.php'){ ?>
-                    <select name="quantity" id="itemListQuantity" class="form-control">
+                <?php
+                if(current_file()=='cart.php'){ ?>
+                    <select name="quantity[]" data-fid="<?=$book['id']?>" class="itemListQuantity form-control">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -25,9 +34,13 @@
                 <?php } ?>
             </div>
             <div class="col-5">
-                <a href="#" class="btn btn-success  btn-fixe-size">Buy Now</a>
+                <form action="/app/userFormController.php" method="post">
+                    <input type="hidden" id="total_quantity<?=$book['id']?>" name="total_quantity" value="1">
+                    <button type='submit' name="butnowForm" value="<?=$book['id']?>" class="btn btn-success  btn-fixe-size">Buy Now</button>
+                </form>
             </div>
-        </div>
+            </div>
+            <?php } ?>
         <?php
         if(current_file()=='cart.php'){ ?>
         <div class="row mt-2">

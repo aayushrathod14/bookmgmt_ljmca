@@ -109,6 +109,7 @@ if(isset($_POST['addtocart'])){
         db_insert('cart', ['book_id'=>$book_id, 'user_id'=>$user_id, 'quantity'=>1]);
         redirect('/'); 
     }
+    else redirect('/login.php');
 }
 
 
@@ -116,6 +117,46 @@ if(isset($_POST['removefcart'])){
     if(auth_user()){
         $cart_id = $_POST['removefcart'];
         db_delete('cart', $cart_id);
-        redirect('/'); 
+        redirect('/cart.php'); 
     }
+    else redirect('/login.php');
+}
+
+if(isset($_POST['butnowForm'])){
+    if(auth_user()){
+       $book_id = $_POST['butnowForm'];
+       $quantity =  $_POST['total_quantity'];
+       $book = db_find('books', $book_id);
+       $orderdata = ['order_no'=>'W'.date('isYmd'), 'user_id'=>auth_user()['id'], 'payment_status'=>'success', 'total_amt'=>($book->price * $quantity)];
+       $order = db_insert('orders', $orderdata);
+       if($order)
+       db_insert('orderdetails', ['order_id'=>$order->id, 'book_id'=>$book_id, 'quantity'=>$quantity, 'created_at'=>date('Y-m-d H:i:s')]);
+       db_update('books', ['available'=>0], $book_id);
+       redirect('/ordersuccess.php?order_id='.$order->order_no);
+    }
+    else redirect('/login.php');
+}
+
+if(isset($_POST['cartBuyAll'])){
+    if(auth_user()){
+        $bookIds = $_POST['book_id'];
+        $quantities = $_POST['quantity'];
+        $orderDetailsData = [];
+        $orderdata = ['order_no'=>'W'.date('isYmd'), 'user_id'=>auth_user()['id'], 'payment_status'=>'success', 'total_amt'=>0];
+        foreach ($bookIds as $key => $bookId) {
+            $book = db_find('books', $bookId);
+            $orderdata['total_amt'] = $orderdata['total_amt'] + ($book->price *  $quantities[$key]);
+        }
+        $order = db_insert('orders', $orderdata);
+        if($order)
+        foreach ($bookIds as $key => $bookId) {
+            $res = db_insert('orderdetails', ['order_id'=>$order->id, 'book_id'=>$bookId, 'quantity'=>$quantities[$key], 'created_at'=>date('Y-m-d H:i:s')]);
+            db_update('books', ['available'=>0], $bookId);
+        }
+        if($res){
+            db_query('delete from cart where user_id = '.auth_user()['id']);
+            redirect('/ordersuccess.php?order_id='.$order->order_no);
+        }
+     }
+     else redirect('/login.php');
 }
